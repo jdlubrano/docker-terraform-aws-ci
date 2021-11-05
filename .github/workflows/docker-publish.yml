@@ -19,13 +19,24 @@ jobs:
         run: docker build --no-cache --pull . --tag $IMAGE_NAME:latest
       - name: Docker login
         run: docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+
       - name: Publish the latest tag
         if: startsWith(github.ref, 'refs/heads/')
         run: docker push $IMAGE_NAME:latest
+      - name: push README to Dockerhub
+        if: startsWith(github.ref, 'refs/heads/')
+        uses: christian-korneck/update-container-description-action@v1
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_PASS: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        with:
+          destination_container_repo: ${{ env.IMAGE_NAME }}
+          provider: dockerhub
+          short_description: "A Docker image to build with Terraform and the AWS CLI in CI workflows"
+
       - name: Tag the image with the semver
         if: startsWith(github.ref, 'refs/tags/')
         run: docker tag $IMAGE_NAME:latest $IMAGE_NAME:${GITHUB_REF#refs/*/}
       - name: Publish the semver tag
         if: startsWith(github.ref, 'refs/tags/')
         run: docker push $IMAGE_NAME:${GITHUB_REF#refs/*/}
-
