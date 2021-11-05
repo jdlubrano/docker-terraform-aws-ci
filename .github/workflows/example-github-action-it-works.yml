@@ -1,0 +1,18 @@
+name: GitHub Action Example - It Works!
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: "jdlubrano/terraform-aws-ci:latest"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Go to example
+        run: cd examples/github-actions/it-works
+      - name: Test for aws and terraform executables
+        run: ./test_executables.sh
