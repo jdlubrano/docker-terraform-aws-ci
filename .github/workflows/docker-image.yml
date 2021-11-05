@@ -43,8 +43,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Go to example
-        run: cd examples/github-actions/it-works
-
-      - name: Test for aws and terraform executables
-        run: ./test_executables.sh
+      - name: Verify that aws and terraform are available
+        run: cd examples/github-actions/it-works && ./test_executables.sh
