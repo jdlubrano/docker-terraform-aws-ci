@@ -16,15 +16,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
-        run: docker build --no-cache --pull . --tag $IMAGE_NAME:latest
+        run: docker build --no-cache --pull . --tag $IMAGE_NAME
       - name: Docker login
         run: echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
 
-      - name: Publish the latest tag
+      # main
+      - name: Tag the image as edge
         if: startsWith(github.ref, 'refs/heads/')
-        run: docker push $IMAGE_NAME:latest
+        run: docker tag $IMAGE_NAME $IMAGE_NAME:edge
+      - name: Publish the edge tag
+        if: startsWith(github.ref, 'refs/heads/')
+        run: docker push $IMAGE_NAME:edge
+
+      # tag/release
       - name: push README to Dockerhub
-        if: startsWith(github.ref, 'refs/heads/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: christian-korneck/update-container-description-action@v1
         env:
           DOCKER_USER: ${{ secrets.DOCKER_HUB_USERNAME }}
@@ -36,7 +42,10 @@ jobs:
 
       - name: Tag the image with the semver
         if: startsWith(github.ref, 'refs/tags/')
-        run: docker tag $IMAGE_NAME:latest $IMAGE_NAME:${GITHUB_REF#refs/*/}
+        run: docker tag $IMAGE_NAME $IMAGE_NAME:${GITHUB_REF#refs/*/}
+      - name: Publish latest
+        if: startsWith(github.ref, 'refs/tags/')
+        run: docker push $IMAGE_NAME:latest
       - name: Publish the semver tag
         if: startsWith(github.ref, 'refs/tags/')
         run: docker push $IMAGE_NAME:${GITHUB_REF#refs/*/}
