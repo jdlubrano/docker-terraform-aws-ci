@@ -19,8 +19,8 @@ jobs:
 
   lint_dockerfile:
     runs-on: ubuntu-latest
-    container: hadolint/hadolint
     steps:
       - uses: actions/checkout@v2
-      - name: Lint Dockerfile
-        run: hadolint Dockerfile
+      - uses: hadolint/hadolint-action@v1.6.0
+        with:
+          dockerfile: Dockerfile
