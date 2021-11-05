@@ -1,5 +1,8 @@
 name: Docker Image CI
 
+env:
+  IMAGE_NAME: "jdlubrano/terraform-aws-ci"
+
 on:
   push:
     branches: [ main ]
@@ -12,5 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$GITHUB_RUN_NUMBER
-      
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:build-$GITHUB_RUN_NUMBER
