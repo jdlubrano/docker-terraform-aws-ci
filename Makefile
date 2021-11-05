@@ -1,6 +1,6 @@
 #!/usr/bin/env make
 
-export IMAGE_NAME=jdlubrano/aws-terraform-ci
+export IMAGE_NAME=jdlubrano/terraform-aws-ci
 
 .DEFAULT_GOAL := build
 
