@@ -51,3 +51,8 @@ pipelines:
           - terraform init
           - aws --version
 ```
+
+## Security
+
+These images are scanned via `docker scan` on a nightly basis.  I will release
+a new patch version when a fix for any security vulnerability becomes available.

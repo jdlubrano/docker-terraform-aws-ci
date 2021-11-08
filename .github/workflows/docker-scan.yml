@@ -1,0 +1,20 @@
+name: Scan Docker Image (Nightly)
+
+env:
+  IMAGE_TAG: "jdlubrano/terraform-aws-ci:latest"
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  docker_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
+      - name: Pull latest image
+        run: docker pull $IMAGE_TAG
+      - name: Docker scan
+        run: docker scan $IMAGE_TAG -f Dockerfile
