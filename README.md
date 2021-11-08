@@ -3,6 +3,14 @@
 A Docker image to build with Terraform and the AWS CLI on CI servers (like
 Bitbucket or GitHub Actions)
 
+## Repository
+
+These images are available in [Docker Hub](https://hub.docker.com/repository/docker/jdlubrano/terraform-aws-ci).
+
+Images are also published to the GitHub Container Repository, but those images
+are intended only for use in this project's CI pipeline.  Docker Hub has a much
+cleaner version history.
+
 ## Using in a GitHub Action
 
 This image can be used as the container in a GitHub action like this:
@@ -51,3 +59,8 @@ pipelines:
           - terraform init
           - aws --version
 ```
+
+## Security
+
+These images are scanned via `docker scan` on a nightly basis.  I will release
+a new patch version when a fix for any security vulnerability becomes available.
