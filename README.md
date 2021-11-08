@@ -1,5 +1,7 @@
 # terraform-aws-ci Docker Image
 
+[![Scan Docker Image (Nightly)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan.yml/badge.svg)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan.yml)
+
 A Docker image to build with Terraform and the AWS CLI on CI servers (like
 Bitbucket or GitHub Actions)
 
