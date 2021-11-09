@@ -64,5 +64,6 @@ pipelines:
 
 ## Security
 
-These images are scanned via `docker scan` on a nightly basis.  I will release
-a new patch version when a fix for any security vulnerability becomes available.
+These images are scanned by [Snyk](https://snyk.io/) on a nightly basis.  A new
+patch version will be released as quickly as possible when a fix for any
+security vulnerability becomes available.
