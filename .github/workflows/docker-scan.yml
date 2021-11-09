@@ -5,15 +5,13 @@ env:
 
 on:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "30 14 * * *"
 
 jobs:
   docker_scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Docker login
-        run: echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
       - name: Pull latest image
         run: docker pull $IMAGE_TAG
       - name: Scan the Docker image
