@@ -19,8 +19,12 @@ jobs:
         run: docker build --no-cache --pull . --tag $IMAGE_NAME
       - name: Docker login
         run: echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
-      - name: Docker scan
-        run: docker scan $IMAGE_NAME -f Dockerfile
+      - name: Scan the Docker image
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ env.IMAGE_NAME }}
 
       # main
       - name: Tag the image as edge
