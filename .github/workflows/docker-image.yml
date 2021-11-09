@@ -24,17 +24,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag $IMAGE_TAG
+
       - uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag $IMAGE_TAG
-
       - name: Push to GitHub Container Registry
         run: docker push $IMAGE_TAG
+
+  security_scan:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan the Docker image
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: ${{ env.IMAGE_TAG }}
+
 
   test_github_action_viability:
     needs: [build]
