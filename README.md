@@ -70,3 +70,16 @@ pipelines:
 These images are scanned by [Snyk](https://snyk.io/) on a nightly basis.  A new
 patch version will be released as quickly as possible when a fix for any
 security vulnerability becomes available.
+
+### Workflow
+
+One way to build a new Docker image that includes updated security patches is
+to push an empty commit and then push a new patch-level tag.
+
+```
+git commit --allow-empty -m "Empty commit to pick up security patches"
+git push origin main
+# ...wait for passing build
+git tag ...
+git push --tags
+```
