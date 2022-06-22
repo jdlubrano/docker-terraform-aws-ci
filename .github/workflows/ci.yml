@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Build and Scan
 
 env:
   IMAGE_TAG: ghcr.io/jdlubrano/terraform-aws-ci:build-${{ github.run_number }}
