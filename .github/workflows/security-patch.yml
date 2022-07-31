@@ -1,0 +1,24 @@
+name: Pick up Security Patches
+
+env:
+  IMAGE_TAG: ghcr.io/jdlubrano/terraform-aws-ci:build-${{ github.run_number }}
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the Docker image
+        run: docker build --no-cache --pull . --tag $IMAGE_TAG
+
+      - uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to GitHub Container Registry
+        run: docker push $IMAGE_TAG
