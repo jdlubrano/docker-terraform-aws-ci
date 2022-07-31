@@ -45,7 +45,7 @@ jobs:
         run: cd examples/github-actions/it-works && ./test_executables.sh
 
   trigger_docker_publish:
-    # needs: [security_scan, test_github_action_viability]
+    needs: [security_scan, test_github_action_viability]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -53,11 +53,9 @@ jobs:
       - name: Install bump version
         run: pip install --upgrade bump2version
 
-      - name: Bump version
+      - name: Bump version and push to main
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          bumpversion patch
-
-      # - name: Push to main
-      # run: git commit -am "Pick up security patches" && git push -u origin main --tags
+          bumpversion patch && cat VERSION
+          git push -u origin main --tags
