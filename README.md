@@ -1,6 +1,6 @@
 # terraform-aws-ci Docker Image
 
-[![Scan Docker Image (Nightly)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan.yml/badge.svg)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan.yml)
+[![Scan Docker Image (Nightly)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan-nightly.yml/badge.svg)](https://github.com/jdlubrano/docker-terraform-aws-ci/actions/workflows/docker-scan-nightly.yml)
 ![Latest Release](https://img.shields.io/github/v/release/jdlubrano/docker-terraform-aws-ci)
 ![Docker Image Size (latest)](https://img.shields.io/docker/image-size/jdlubrano/terraform-aws-ci/latest)
 ![Docker Pulls](https://img.shields.io/docker/pulls/jdlubrano/terraform-aws-ci)
