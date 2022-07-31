@@ -19,7 +19,7 @@ FROM amazonlinux:2 as ci_stage
 
 RUN yum upgrade -y && yum install -y \
   jq-1.5 \
-  git-2.32.0 \
+  git-2.37.1 \
   && yum clean all
 
 COPY --from=terraform_stage /bin/terraform /usr/local/bin/terraform
